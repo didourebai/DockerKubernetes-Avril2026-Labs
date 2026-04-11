@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IT-Support Portal</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <!-- En-tête -->
+  <header>
+    <div class="header-inner">
+      <div class="logo">🖥️ IT-Support Portal</div>
+      <div class="subtitle">Tableau de bord de l'infrastructure informatique</div>
+    </div>
+  </header>
+
+  <!-- Contenu principal -->
+  <main>
+
+    <!-- Carte : Informations système -->
+    <section class="card" id="system-card">
+      <h2>📊 Informations système</h2>
+      <div id="system-info">
+        <p class="loading">Chargement en cours...</p>
+      </div>
+    </section>
+
+    <!-- Carte : État des services -->
+    <section class="card" id="services-card">
+      <h2>⚙️ État des services</h2>
+      <div id="services-list">
+        <p class="loading">Chargement en cours...</p>
+      </div>
+    </section>
+
+    <!-- Carte : Environnement de déploiement -->
+    <section class="card" id="deploy-card">
+      <h2>🚀 Environnement de déploiement</h2>
+      <div id="deploy-info">
+        <p class="loading">Chargement en cours...</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Pied de page -->
+  <footer>
+    <p>IT-Support Portal — Formation Docker &amp; Kubernetes</p>
+  </footer>
+
+  <script>
+    // Chargement des informations système depuis l'API Python
+    async function loadSystemInfo() {
+      try {
+        const response = await fetch("/api/status");
+        const data = await response.json();
+
+        document.getElementById("system-info").innerHTML = `
+          <table class="info-table">
+            <tr><td>🖥️ Nom de l'hôte</td><td><strong>${data.hostname}</strong></td></tr>
+            <tr><td>🐍 Python</td><td>${data.python_version}</td></tr>
+            <tr><td>🕒 Heure serveur</td><td>${data.timestamp}</td></tr>
+          </table>
+        `;
+
+        document.getElementById("deploy-info").innerHTML = `
+          <table class="info-table">
+            <tr><td>🌍 Environnement</td><td><span class="badge badge-env">${data.environment}</span></td></tr>
+            <tr><td>📌 Version app</td><td><strong>${data.version}</strong></td></tr>
+            <tr><td>💻 Système</td><td>${data.os}</td></tr>
+          </table>
+        `;
+      } catch (error) {
+        document.getElementById("system-info").innerHTML =
+          `<p class="error">Impossible de contacter l'API : ${error.message}</p>`;
+      }
+    }
+
+    // Chargement de l'état des services
+    async function loadServices() {
+      try {
+        const response = await fetch("/api/services");
+        const services = await response.json();
+
+        const html = services.map(s => `
+          <div class="service-row">
+            <span class="service-icon">${s.icone}</span>
+            <span class="service-name">${s.nom}</span>
+            <span class="badge badge-${s.statut}">${s.statut}</span>
+          </div>
+        `).join("");
+
+        document.getElementById("services-list").innerHTML = html;
+      } catch (error) {
+        document.getElementById("services-list").innerHTML =
+          `<p class="error">Impossible de charger les services.</p>`;
+      }
+    }
+
+    // Lancement au chargement de la page
+    loadSystemInfo();
+    loadServices();
+
+    // Rafraîchissement automatique toutes les 30 secondes
+    setInterval(() => {
+      loadSystemInfo();
+      loadServices();
+    }, 30000);
+  </script>
+
+</body>
+</html>

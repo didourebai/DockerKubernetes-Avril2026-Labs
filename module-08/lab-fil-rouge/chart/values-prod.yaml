@@ -1,0 +1,20 @@
+# values-prod.yaml — Surcharges pour l'environnement de production
+# Utilisation : helm install it-portal chart/ -f chart/values-prod.yaml
+
+app:
+  replicaCount: 3              # 3 réplicas en production (haute disponibilité)
+  imagePullPolicy: Always      # Toujours télécharger depuis le registre
+  environment: "production"
+
+nginx:
+  replicaCount: 2              # 2 réplicas Nginx en production
+
+db:
+  storage: 10Gi                # Plus d'espace en production
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "200m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"

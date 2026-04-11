@@ -1,0 +1,78 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "it-portal.labels" . | nindent 4 }}
+    app: it-portal-nginx
+spec:
+  replicas: {{ .Values.nginx.replicaCount }}
+  selector:
+    matchLabels:
+      app: it-portal-nginx
+  template:
+    metadata:
+      labels:
+        app: it-portal-nginx
+    spec:
+      containers:
+      - name: nginx
+        image: "{{ .Values.nginx.image }}:{{ .Values.nginx.tag }}"
+        ports:
+        - containerPort: {{ .Values.nginx.port }}
+        volumeMounts:
+        - name: nginx-conf
+          mountPath: /etc/nginx/conf.d
+        resources:
+          {{- toYaml .Values.nginx.resources | nindent 10 }}
+        readinessProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.nginx.port }}
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      volumes:
+      - name: nginx-conf
+        configMap:
+          name: nginx-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "it-portal.labels" . | nindent 4 }}
+data:
+  default.conf: |
+    server {
+        listen {{ .Values.nginx.port }};
+        server_name localhost;
+        location /static/ {
+            root /usr/share/nginx/html;
+            expires 7d;
+        }
+        location / {
+            proxy_pass http://app-svc:{{ .Values.app.port }};
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+        }
+    }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-svc
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "it-portal.labels" . | nindent 4 }}
+spec:
+  type: NodePort
+  selector:
+    app: it-portal-nginx
+  ports:
+  - port: {{ .Values.nginx.port }}
+    targetPort: {{ .Values.nginx.port }}
+    nodePort: {{ .Values.nginx.nodePort }}

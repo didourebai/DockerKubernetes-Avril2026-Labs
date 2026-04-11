@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+
+  nginx:
+    image: nginx:1.27-alpine
+    ports:
+      - "${NGINX_PORT:-8080}:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
+    networks:
+      - reseau-portail
+    restart: unless-stopped
+
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+      args:
+        VERSION: "${APP_VERSION:-4.0.0}"
+    environment:
+      - APP_ENV=${APP_ENV:-production}
+      - APP_VERSION=${APP_VERSION:-4.0.0}
+    volumes:
+      - portail-data:/app/data
+    networks:
+      - reseau-portail
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python3", "-c",
+             "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+networks:
+  reseau-portail:
+    driver: bridge
+
+volumes:
+  portail-data:

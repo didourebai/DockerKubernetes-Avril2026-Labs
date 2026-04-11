@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db
+  namespace: it-portal
+  labels:
+    app: it-portal-db
+spec:
+  serviceName: db-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: it-portal-db
+  template:
+    metadata:
+      labels:
+        app: it-portal-db
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:16-alpine
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              name: it-portal-config
+              key: POSTGRES_DB
+        - name: POSTGRES_USER
+          valueFrom:
+            configMapKeyRef:
+              name: it-portal-config
+              key: POSTGRES_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: it-portal-secret
+              key: POSTGRES_PASSWORD
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "250m"
+        # Vérification de santé PostgreSQL
+        readinessProbe:
+          exec:
+            command:
+            - pg_isready
+            - -U
+            - it_admin
+            - -d
+            - it_portal
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        # Volume persistant pour les données
+        volumeMounts:
+        - name: db-storage
+          mountPath: /var/lib/postgresql/data
+        - name: db-init
+          mountPath: /docker-entrypoint-initdb.d
+      volumes:
+      - name: db-init
+        configMap:
+          name: db-init-sql
+  # Provisionnement automatique du volume de données
+  volumeClaimTemplates:
+  - metadata:
+      name: db-storage
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi

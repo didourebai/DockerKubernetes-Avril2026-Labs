@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: it-portal-config
+  namespace: it-support
+data:
+  APP_ENV: "production"
+  APP_VERSION: "6.0.0"
+  PORT: "5000"

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-svc
+  namespace: it-portal
+  labels:
+    app: it-portal-app
+spec:
+  type: ClusterIP
+  selector:
+    app: it-portal-app
+  ports:
+  - port: 5000
+    targetPort: 5000
+    name: flask

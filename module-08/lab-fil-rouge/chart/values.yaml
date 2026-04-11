@@ -1,0 +1,26 @@
+# Valeurs par défaut du IT-Support Portal
+# Vous pouvez surcharger n'importe quelle valeur avec --set ou -f fichier.yaml
+
+# --- Application Flask ---
+app:
+  image: it-portal
+  tag: v7
+  pullPolicy: Never        # Image locale (pas sur Docker Hub)
+  replicas: 3
+  version: "7.0.0"
+  env: "production"
+  port: 5000
+
+# --- Nginx ---
+nginx:
+  image: nginx
+  tag: 1.27-alpine
+  replicas: 2
+  nodePort: 30080
+
+# --- Stockage ---
+storage:
+  size: 100Mi
+
+# --- Namespace ---
+namespace: it-support

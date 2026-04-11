@@ -1,0 +1,9 @@
+apiVersion: v2
+name: it-support-portal
+description: Portail web de surveillance IT — Formation Docker & Kubernetes
+type: application
+version: 1.0.0
+appVersion: "7.0.0"
+maintainers:
+  - name: it-support
+    email: it-support@institution.ca

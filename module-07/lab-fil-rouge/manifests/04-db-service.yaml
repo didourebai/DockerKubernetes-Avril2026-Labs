@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-svc
+  namespace: it-portal
+  labels:
+    app: it-portal-db
+spec:
+  # ClusterIP = service interne uniquement, non accessible depuis l'extérieur
+  type: ClusterIP
+  selector:
+    app: it-portal-db
+  ports:
+  - port: 5432
+    targetPort: 5432
+    name: postgres

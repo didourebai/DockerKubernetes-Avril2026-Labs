@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+  namespace: it-portal
+  labels:
+    app: it-portal-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: it-portal-app
+  # Stratégie de mise à jour progressive (rolling update)
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1        # Autoriser 1 pod supplémentaire pendant la mise à jour
+      maxUnavailable: 0  # Aucun pod indisponible pendant la mise à jour
+  template:
+    metadata:
+      labels:
+        app: it-portal-app
+    spec:
+      containers:
+      - name: app
+        image: it-portal:v6
+        # imagePullPolicy: Never → utilise l'image locale chargée avec kind load
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
+        env:
+        - name: APP_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: it-portal-config
+              key: APP_ENV
+        - name: APP_VERSION
+          valueFrom:
+            configMapKeyRef:
+              name: it-portal-config
+              key: APP_VERSION
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: it-portal-secret
+              key: DATABASE_URL
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
+        # Sonde de démarrage : attendre que l'app soit prête
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          failureThreshold: 3
+        # Sonde de vie : redémarrer si l'app ne répond plus
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 3

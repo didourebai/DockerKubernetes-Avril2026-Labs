@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: it-portal-app
+  namespace: it-support
+  labels:
+    app: it-portal-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: it-portal-app
+  template:
+    metadata:
+      labels:
+        app: it-portal-app
+    spec:
+      containers:
+      - name: app
+        image: it-portal:v6
+        imagePullPolicy: Never     # Image locale (pas sur Docker Hub)
+        ports:
+        - containerPort: 5000
+        envFrom:
+        - configMapRef:
+            name: it-portal-config
+        - secretRef:
+            name: it-portal-secret
+        volumeMounts:
+        - name: data-volume
+          mountPath: /app/data
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 15
+          periodSeconds: 20
+      volumes:
+      - name: data-volume
+        persistentVolumeClaim:
+          claimName: portail-data-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: it-portal-app-svc
+  namespace: it-support
+spec:
+  selector:
+    app: it-portal-app
+  ports:
+  - port: 5000
+    targetPort: 5000
+  type: ClusterIP

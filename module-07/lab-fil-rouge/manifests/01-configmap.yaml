@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: it-portal-config
+  namespace: it-portal
+data:
+  APP_ENV: "production"
+  APP_VERSION: "6.0.0"
+  POSTGRES_DB: "it_portal"
+  POSTGRES_USER: "it_admin"
+  # L'URL de connexion utilise le nom DNS du service Kubernetes (db-svc)
+  DATABASE_URL: "postgresql://it_admin:$(POSTGRES_PASSWORD)@db-svc:5432/it_portal"

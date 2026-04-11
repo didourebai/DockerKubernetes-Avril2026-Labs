@@ -1,0 +1,80 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "it-portal.labels" . | nindent 4 }}
+    app: it-portal-db
+spec:
+  serviceName: db-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: it-portal-db
+  template:
+    metadata:
+      labels:
+        app: it-portal-db
+    spec:
+      containers:
+      - name: postgres
+        image: "{{ .Values.db.image }}:{{ .Values.db.tag }}"
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              name: it-portal-config
+              key: POSTGRES_DB
+        - name: POSTGRES_USER
+          valueFrom:
+            configMapKeyRef:
+              name: it-portal-config
+              key: POSTGRES_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: it-portal-secret
+              key: POSTGRES_PASSWORD
+        resources:
+          {{- toYaml .Values.db.resources | nindent 10 }}
+        readinessProbe:
+          exec:
+            command: ["pg_isready", "-U", "{{ .Values.db.user }}", "-d", "{{ .Values.db.name }}"]
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        volumeMounts:
+        - name: db-storage
+          mountPath: /var/lib/postgresql/data
+        - name: db-init
+          mountPath: /docker-entrypoint-initdb.d
+      volumes:
+      - name: db-init
+        configMap:
+          name: db-init-sql
+  volumeClaimTemplates:
+  - metadata:
+      name: db-storage
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: {{ .Values.db.storage }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-svc
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "it-portal.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  selector:
+    app: it-portal-db
+  ports:
+  - port: 5432
+    targetPort: 5432

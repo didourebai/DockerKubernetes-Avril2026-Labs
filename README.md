@@ -1,7 +1,7 @@
 # DockerKubernetes-Avril2026-Labs
 
 > Ce guide vous accompagne pas à pas dans la découverte de Docker et Kubernetes, en partant des bases jusqu'à des déploiements complets.  
-> Formation destinée aux **techniciens et analystes informatiques** en soutien aux professeurs.
+
 
 ---
 

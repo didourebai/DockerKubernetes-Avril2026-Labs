@@ -99,12 +99,7 @@ docker images | grep it-portal
 ## Étape 5 — Lancer le portail
 
 ```bash
-docker run -d \
-  -p 8080:5000 \
-  --name it-portal \
-  -e APP_ENV=développement \
-  -e APP_VERSION=1.0.0 \
-  it-portal:v1
+docker run -d -p 8080:5000 --name it-portal -e APP_ENV=développement -e APP_VERSION=1.0.0 it-portal:v1
 ```
 
 Ouvrez votre navigateur : **http://localhost:8080**

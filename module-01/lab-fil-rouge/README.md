@@ -8,7 +8,7 @@
 
 ## 🎯 Contexte
 
-Vous travaillez comme technicien IT dans une institution scolaire.  
+Vous faites le support technique dans une institution scolaire.  
 Les professeurs vous demandent souvent l'état de l'infrastructure : "Est-ce que le serveur web fonctionne ? La base de données est-elle active ?"
 
 Votre objectif : déployer un **portail web de surveillance** interne appelé **IT-Support Portal**.

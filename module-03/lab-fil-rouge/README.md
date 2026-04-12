@@ -137,12 +137,7 @@ it-portal   v1   ...   xxx MB   ← Version module 02
 ## Étape 5 — Lancer la version de production
 
 ```bash
-docker run -d \
-  -p 8080:5000 \
-  --name it-portal-v2 \
-  -e APP_ENV=production \
-  -e APP_VERSION=2.0.0 \
-  it-portal:v2
+docker run -d -p 8080:5000 --name it-portal-v2 -e APP_ENV=production -e APP_VERSION=2.0.0 it-portal:v2
 ```
 
 Ouvrez : **http://localhost:8080**

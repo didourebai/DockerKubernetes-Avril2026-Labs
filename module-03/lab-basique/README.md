@@ -103,7 +103,7 @@ docker build \
   -t mon-site-web:v2 .
 
 # Vérifier les métadonnées
-docker inspect mon-site-web:v2 | grep -A5 "Labels"
+docker inspect mon-site-web:v2 | findstr -A5 "Labels"
 ```
 
 ---
@@ -144,7 +144,7 @@ docker pull nginx:latest
 # Ubuntu complète (beaucoup plus grosse)
 docker pull ubuntu:24.04
 
-docker images | grep -E "nginx|ubuntu"
+docker images | findstr -E "nginx|ubuntu"
 ```
 
 > 💡 **Règle d'or :** Toujours préférer les images `alpine` ou `slim` en production — elles sont plus légères et ont moins de vulnérabilités.

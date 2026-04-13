@@ -7,6 +7,13 @@
 Déployer le IT-Support Portal en **haute disponibilité** avec Docker Swarm.  
 Le portail restera accessible même si un conteneur tombe.
 
+
+> **Note Windows PowerShell :**
+> - `| grep X`  ->  `| findstr X`
+> - `$(date +%Y-%m-%d)`  ->  `$(Get-Date -Format "yyyy-MM-dd")`
+> - `$(pwd)`  ->  `${PWD}`
+> - `commande1 && commande2`  ->  deux lignes separees
+
 ---
 
 ## Architecture v5

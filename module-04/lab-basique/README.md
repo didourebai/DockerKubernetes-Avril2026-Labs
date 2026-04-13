@@ -4,6 +4,13 @@
 > **Duree estimee :** 25 minutes
 > **Prerequis :** Module 03 termine
 
+
+> **Note Windows PowerShell :**
+> - `| grep X`  ->  `| findstr X`
+> - `$(date +%Y-%m-%d)`  ->  `$(Get-Date -Format "yyyy-MM-dd")`
+> - `$(pwd)`  ->  `${PWD}`
+> - `commande1 && commande2`  ->  deux lignes separees
+
 ---
 
 ## Objectifs

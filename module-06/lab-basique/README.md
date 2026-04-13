@@ -6,6 +6,13 @@
 ## 🎯 Objectifs
 Comprendre Docker Swarm : initialiser un cluster, déployer un service, le scaler.
 
+
+> **Note Windows PowerShell :**
+> - `| grep X`  ->  `| findstr X`
+> - `$(date +%Y-%m-%d)`  ->  `$(Get-Date -Format "yyyy-MM-dd")`
+> - `$(pwd)`  ->  `${PWD}`
+> - `commande1 && commande2`  ->  deux lignes separees
+
 ---
 
 ## Étape 1 — Initialiser un cluster Swarm

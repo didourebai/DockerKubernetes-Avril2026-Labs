@@ -3,6 +3,13 @@
 > **Niveau :** Débutant  
 > **Durée estimée :** 30 minutes
 
+
+> **Note Windows PowerShell :**
+> - `| grep X`  ->  `| findstr X`
+> - `$(date +%Y-%m-%d)`  ->  `$(Get-Date -Format "yyyy-MM-dd")`
+> - `$(pwd)`  ->  `${PWD}`
+> - `commande1 && commande2`  ->  deux lignes separees
+
 ---
 
 ## 🎯 Objectifs
@@ -99,7 +106,7 @@ Construire avec des arguments :
 ```bash
 docker build \
   --build-arg VERSION=2.0.0 \
-  --build-arg BUILD_DATE=$(date +%Y-%m-%d) \
+  --build-arg BUILD_DATE=$(Get-Date -Format "yyyy-MM-dd") \
   -t mon-site-web:v2 .
 
 # Vérifier les métadonnées

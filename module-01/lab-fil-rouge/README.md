@@ -69,7 +69,7 @@ docker run -d -p 8080:5000 --name it-portal-demo -e APP_ENV=demonstration -v ${P
 
 **Mac / Linux (Terminal) :**
 ```bash
-docker run -d -p 8080:5000 --name it-portal-demo -e APP_ENV=demonstration -v $(pwd)/demo.py:/app/demo.py python:3.12-slim python3 /app/demo.py
+docker run -d -p 8080:5000 --name it-portal-demo -e APP_ENV=demonstration -v ${PWD}/demo.py:/app/demo.py python:3.12-slim python3 /app/demo.py
 ```
 
 **Explication des options :**

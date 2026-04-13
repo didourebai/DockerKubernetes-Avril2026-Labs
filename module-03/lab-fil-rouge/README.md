@@ -3,6 +3,13 @@
 > **Niveau :** Débutant  
 > **Durée estimée :** 25 minutes
 
+
+> **Note Windows PowerShell :**
+> - `| grep X`  ->  `| findstr X`
+> - `$(date +%Y-%m-%d)`  ->  `$(Get-Date -Format "yyyy-MM-dd")`
+> - `$(pwd)`  ->  `${PWD}`
+> - `commande1 && commande2`  ->  deux lignes separees
+
 ---
 
 ## 🎯 Objectif
@@ -113,7 +120,7 @@ CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "2", "app:app"]
 ## Étape 3 — Construire l'image optimisée
 
 ```bash
-docker build --build-arg VERSION=2.0.0 --build-arg BUILD_DATE=$(date +%Y-%m-%d) -t it-portal:v2 .
+docker build --build-arg VERSION=2.0.0 --build-arg BUILD_DATE=$(Get-Date -Format "yyyy-MM-dd") -t it-portal:v2 .
 ```
 
 ---

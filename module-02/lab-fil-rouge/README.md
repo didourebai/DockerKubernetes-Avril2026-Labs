@@ -91,7 +91,7 @@ Regardez les lignes qui défilent — chaque ligne correspond à une instruction
 
 Vérifiez que l'image est créée :
 ```bash
-docker images | grep it-portal
+docker images | findstr it-portal
 ```
 
 ---

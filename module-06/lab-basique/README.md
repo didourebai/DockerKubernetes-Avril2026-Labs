@@ -71,7 +71,7 @@ Swarm démarre automatiquement 2 conteneurs supplémentaires.
 
 ```bash
 # Trouver l'ID d'un conteneur du service
-docker ps | grep mon-web
+docker ps | findstr mon-web
 
 # Supprimer un conteneur (simuler une panne)
 docker rm -f <ID_DU_CONTENEUR>

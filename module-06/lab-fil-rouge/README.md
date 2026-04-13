@@ -78,7 +78,7 @@ Ouvrez **http://localhost:8080** ✅
 
 ```bash
 # Trouver un conteneur de l'application
-docker ps | grep portail-it_app
+docker ps | findstr portail-it_app
 
 # Supprimer un conteneur (simuler une panne)
 docker rm -f <ID>

@@ -104,10 +104,7 @@ EXPOSE $NGINX_PORT
 Construire avec des arguments :
 
 ```bash
-docker build \
-  --build-arg VERSION=2.0.0 \
-  --build-arg BUILD_DATE=$(Get-Date -Format "yyyy-MM-dd") \
-  -t mon-site-web:v2 .
+docker build --build-arg VERSION=2.0.0 --build-arg BUILD_DATE=$(Get-Date -Format "yyyy-MM-dd") -t mon-site-web:v2 .
 
 # Vérifier les métadonnées
 docker inspect mon-site-web:v2 | findstr -A5 "Labels"

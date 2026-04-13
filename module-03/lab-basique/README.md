@@ -131,7 +131,7 @@ EOF
 ## Étape 5 — Comparer la taille des images
 
 ```bash
-docker images | grep mon-site-web
+docker images | findstr mon-site-web
 ```
 
 Comparez différentes images de base :

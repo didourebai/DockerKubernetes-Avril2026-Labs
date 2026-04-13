@@ -1,0 +1,14 @@
+# service-nginx.yaml — Module 07 Lab basique
+# Un Service NodePort pour accéder au Deployment depuis le navigateur
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-service
+spec:
+  type: NodePort
+  selector:
+    app: web
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30080

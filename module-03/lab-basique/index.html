@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Mon Site IT</title>
+</head>
+<body style="font-family:sans-serif; padding:40px; background:#e8f4f8">
+  <h1>🖥️ Mon premier site web conteneurisé</h1>
+  <p>Ce site tourne dans un conteneur Docker !</p>
+  <p>Date de déploiement : <strong id="date"></strong></p>
+  <script>
+    document.getElementById('date').textContent =
+      new Date().toLocaleDateString('fr-FR');
+  </script>
+</body>
+</html>

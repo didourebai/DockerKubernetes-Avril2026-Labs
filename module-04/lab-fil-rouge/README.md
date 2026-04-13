@@ -39,7 +39,7 @@ Ouvrez **http://localhost:8080** — version affichée : **3.0.0**
 ## Étape 5 — Comparer toutes les versions
 
 ```bash
-docker images | grep it-portal
+docker images | findstr it-portal
 ```
 
 | Version | Module | Nouveautés |

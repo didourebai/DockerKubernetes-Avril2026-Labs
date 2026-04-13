@@ -51,7 +51,8 @@ docker images | grep it-portal
 ## 🧹 Nettoyage
 
 ```bash
-docker stop it-portal-v3 && docker rm it-portal-v3
+docker stop it-portal-v3
+docker rm it-portal-v3
 ```
 
 ---

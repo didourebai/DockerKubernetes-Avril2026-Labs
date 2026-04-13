@@ -15,7 +15,7 @@ docker buildx build --check .
 ## Étape 2 — Builder avec cache BuildKit
 
 ```bash
-docker buildx build --build-arg VERSION=3.0.0 --build-arg BUILD_DATE=$(date +%Y-%m-%d) -t it-portal:v3 .
+docker buildx build --build-arg VERSION=3.0.0 --build-arg BUILD_DATE=$(Get-Date -Format "yyyy-MM-dd") -t it-portal:v3 .
 ```
 
 Modifiez un texte dans `app.py` et rebuilder — l'étape `pip install` est instantanée grâce au cache.

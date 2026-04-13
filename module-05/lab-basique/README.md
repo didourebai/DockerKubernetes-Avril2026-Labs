@@ -30,16 +30,10 @@ docker network ls
 
 ```bash
 # Lancer un serveur web
-docker run -d \
-  --network reseau-institution \
-  --name serveur-web \
-  nginx:alpine
+docker run -d --network reseau-institution --name serveur-web nginx:alpine
 
 # Lancer un conteneur "client"
-docker run -d \
-  --network reseau-institution \
-  --name client-test \
-  alpine sleep 3600
+docker run -d --network reseau-institution --name client-test alpine sleep 3600
 ```
 
 ### Étape 3 — Tester la communication entre conteneurs

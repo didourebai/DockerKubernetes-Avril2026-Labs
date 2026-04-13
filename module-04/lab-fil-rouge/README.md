@@ -15,10 +15,7 @@ docker buildx build --check .
 ## Étape 2 — Builder avec cache BuildKit
 
 ```bash
-docker buildx build \
-  --build-arg VERSION=3.0.0 \
-  --build-arg BUILD_DATE=$(date +%Y-%m-%d) \
-  -t it-portal:v3 .
+docker buildx build --build-arg VERSION=3.0.0 --build-arg BUILD_DATE=$(date +%Y-%m-%d) -t it-portal:v3 .
 ```
 
 Modifiez un texte dans `app.py` et rebuilder — l'étape `pip install` est instantanée grâce au cache.
@@ -34,8 +31,7 @@ docker scout recommendations it-portal:v3
 ## Étape 4 — Lancer et tester
 
 ```bash
-docker run -d -p 8080:5000 --name it-portal-v3 \
-  -e APP_ENV=production -e APP_VERSION=3.0.0 it-portal:v3
+docker run -d -p 8080:5000 --name it-portal-v3 -e APP_ENV=production -e APP_VERSION=3.0.0 it-portal:v3
 ```
 
 Ouvrez **http://localhost:8080** — version affichée : **3.0.0**

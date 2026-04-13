@@ -3,6 +3,13 @@
 > **Niveau :** Débutant  
 > **Durée estimée :** 35 minutes
 
+
+> **Note Windows PowerShell :**
+> - `cat > fichier << 'EOF' ... EOF`  ->  `@" ... "@ | Out-File fichier -Encoding utf8`
+> - `rm -rf dossier`  ->  `Remove-Item -Recurse -Force dossier`
+> - `| grep X`  ->  `| findstr X`
+> - `commande1 && commande2`  ->  deux lignes separees
+
 ---
 
 ## 🎯 Objectifs
@@ -129,11 +136,23 @@ Testez dans votre navigateur :
 Créez un fichier `.env` :
 
 ```bash
+**Mac / Linux :**
+```bash
 cat > .env << 'EOF'
 APP_NAME=Formation-Docker
 APP_VERSION=1.0.0
 NGINX_PORT=8080
 EOF
+```
+
+**Windows (PowerShell) :**
+```powershell
+@"
+APP_NAME=Formation-Docker
+APP_VERSION=1.0.0
+NGINX_PORT=8080
+"@ | Out-File -FilePath .env -Encoding utf8
+```
 ```
 
 Modifiez `docker-compose.yml` pour utiliser ces variables :
@@ -182,7 +201,7 @@ docker-compose top
 ```bash
 docker-compose down
 cd ..
-rm -rf compose-test
+Remove-Item -Recurse -Force compose-test
 ```
 
 ---

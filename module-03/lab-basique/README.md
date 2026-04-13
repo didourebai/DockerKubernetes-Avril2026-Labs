@@ -120,6 +120,8 @@ docker inspect mon-site-web:v2 | findstr -A5 "Labels"
 Le `.dockerignore` dit à Docker quels fichiers **ne pas** copier dans l'image :
 
 ```bash
+**Mac / Linux :**
+```bash
 cat > .dockerignore << 'EOF'
 *.md
 *.log
@@ -129,6 +131,20 @@ node_modules
 __pycache__
 *.pyc
 EOF
+```
+
+**Windows (PowerShell) :**
+```powershell
+@"
+*.md
+*.log
+.git
+.DS_Store
+node_modules
+__pycache__
+*.pyc
+"@ | Out-File -FilePath .dockerignore -Encoding utf8
+```
 ```
 
 > 💡 Sans `.dockerignore`, si votre dossier contient des gros fichiers inutiles (vidéos, archives), ils seraient copiés dans l'image et l'alourdir.

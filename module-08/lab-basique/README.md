@@ -5,6 +5,13 @@
 ## 🎯 Objectifs
 Comprendre Helm, installer un chart existant, créer votre propre chart.
 
+
+> **Note Windows PowerShell :**
+> - `cat > fichier << 'EOF' ... EOF`  ->  `@" ... "@ | Out-File fichier -Encoding utf8`
+> - `rm -rf dossier`  ->  `Remove-Item -Recurse -Force dossier`
+> - `| grep X`  ->  `| findstr X`
+> - `commande1 && commande2`  ->  deux lignes separees
+
 ---
 
 ## Étape 1 — Installer et vérifier Helm
@@ -134,7 +141,7 @@ helm install test-chart mon-chart
 
 helm list
 helm uninstall test-chart
-rm -rf mon-chart
+Remove-Item -Recurse -Force mon-chart
 ```
 
 ---

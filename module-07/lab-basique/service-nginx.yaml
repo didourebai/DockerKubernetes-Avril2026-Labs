@@ -1,5 +1,5 @@
-# service-nginx.yaml — Module 07 Lab basique
-# Un Service NodePort pour accéder au Deployment depuis le navigateur
+# service-nginx.yaml -- Module 07 Lab basique
+# Un Service NodePort pour acceder au Deployment depuis le navigateur
 apiVersion: v1
 kind: Service
 metadata:

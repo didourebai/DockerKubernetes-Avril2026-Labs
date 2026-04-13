@@ -1,4 +1,4 @@
-# pod-nginx.yaml — Module 07 Lab basique
+# pod-nginx.yaml -- Module 07 Lab basique
 # Un Pod Kubernetes simple avec Nginx
 apiVersion: v1
 kind: Pod

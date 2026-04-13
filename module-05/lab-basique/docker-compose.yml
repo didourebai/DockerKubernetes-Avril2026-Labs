@@ -1,10 +1,7 @@
-# docker-compose.yml — Module 05 Lab basique
-# Lance un serveur Nginx qui sert la page html/index.html
+# docker-compose.yml -- Module 05 Lab basique
 version: "3.9"
 
 services:
-
-  # Service : Serveur web Nginx
   web:
     image: nginx:alpine
     ports:

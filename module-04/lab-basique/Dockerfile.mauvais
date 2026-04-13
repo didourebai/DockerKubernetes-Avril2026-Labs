@@ -1,6 +1,6 @@
-# ❌ MAUVAIS ordre — le pip install se relance à CHAQUE changement de code
+# MAUVAIS ordre -- le pip install se relance a CHAQUE changement de code
 FROM python:3.12-slim
 WORKDIR /app
-COPY . .                              
+COPY . .
 RUN pip install --no-cache-dir -r requirements.txt
 CMD ["python", "app.py"]

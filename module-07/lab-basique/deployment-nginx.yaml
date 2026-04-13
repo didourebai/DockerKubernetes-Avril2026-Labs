@@ -1,5 +1,5 @@
-# deployment-nginx.yaml — Module 07 Lab basique
-# Un Deployment avec 3 répliques Nginx
+# deployment-nginx.yaml -- Module 07 Lab basique
+# Un Deployment avec 3 repliques Nginx
 apiVersion: apps/v1
 kind: Deployment
 metadata:

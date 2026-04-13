@@ -121,7 +121,7 @@ docker build --build-arg VERSION=2.0.0 --build-arg BUILD_DATE=$(date +%Y-%m-%d) 
 ## Étape 4 — Comparer les tailles
 
 ```bash
-docker images | grep it-portal
+docker images | findstr it-portal
 ```
 
 **Résultat attendu :**

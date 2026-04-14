@@ -88,7 +88,7 @@ error: deployment "it-portal-app" exceeded its progress deadline
 Cela signifie que l'image n'a pas ete trouvee. Verifiez avec :
 ```bash
 kubectl -n it-support describe pod -l app=it-portal-app
-
+```
 ## Étape 2 — Créer le namespace
 
 Kubernetes utilise des **namespaces** pour isoler les ressources :

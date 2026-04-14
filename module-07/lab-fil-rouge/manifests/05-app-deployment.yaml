@@ -24,8 +24,8 @@ spec:
       containers:
       - name: app
         image: it-portal:v6
-        # imagePullPolicy: Never → utilise l'image locale chargée avec kind load
-        imagePullPolicy: Never
+        # imagePullPolicy: IfNotPresent   # Utilise locale si dispo, sinon telecharge → utilise l'image locale chargée avec kind load
+        imagePullPolicy: IfNotPresent   # Utilise locale si dispo, sinon telecharge
         ports:
         - containerPort: 5000
         env:

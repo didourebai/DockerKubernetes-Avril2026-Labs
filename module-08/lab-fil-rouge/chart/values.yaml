@@ -5,7 +5,7 @@
 app:
   image: it-portal
   tag: v7
-  pullPolicy: Never        # Image locale (pas sur Docker Hub)
+  pullPolicy: IfNotPresent   # Utilise locale si dispo, sinon telecharge
   replicas: 3
   version: "7.0.0"
   env: "production"

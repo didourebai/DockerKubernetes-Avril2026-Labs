@@ -18,7 +18,7 @@ spec:
       containers:
       - name: app
         image: it-portal:v6
-        imagePullPolicy: Never     # Image locale (pas sur Docker Hub)
+        imagePullPolicy: IfNotPresent   # Utilise locale si dispo, sinon telecharge
         ports:
         - containerPort: 5000
         envFrom:

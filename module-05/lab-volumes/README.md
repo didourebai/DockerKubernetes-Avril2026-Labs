@@ -224,11 +224,11 @@ Sans volume, une base de données perd toutes ses données à chaque redémarrag
 Voici comment sauvegarder les données d'une base SQLite.
 
 ```bash
-docker run -d \
-  --name ma-base \
-  -v mon-premier-volume:/app/data \
-  -e APP_ENV=production \
-  python:3.12-slim \
+docker run -d `
+  --name ma-base `
+  -v mon-premier-volume:/app/data `
+  -e APP_ENV=production `
+  python:3.12-slim `
   python3 -c "
 import sqlite3, os, time
 os.makedirs('/app/data', exist_ok=True)
@@ -242,6 +242,7 @@ for row in conn.execute('SELECT * FROM serveurs'):
     print(row)
 conn.close()
 "
+
 ```
 
 Voir les logs :

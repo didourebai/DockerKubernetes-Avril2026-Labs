@@ -37,11 +37,7 @@ Vous êtes le seul nœud — rôle **Leader** et **Manager**.
 Dans Swarm, on ne fait plus `docker run`, on crée des **services** :
 
 ```bash
-docker service create \
-  --name mon-web \
-  --replicas 2 \
-  --publish 8080:80 \
-  nginx:alpine
+docker service create --name mon-web --replicas 2 --publish 8080:80 nginx:alpine
 ```
 
 **Explication :**
@@ -95,11 +91,7 @@ docker service ps mon-web
 
 ```bash
 # Mettre à jour l'image (rolling update)
-docker service update \
-  --image nginx:1.27-alpine \
-  --update-parallelism 1 \
-  --update-delay 5s \
-  mon-web
+docker service update --image nginx:1.27-alpine --update-parallelism 1 --update-delay 5s mon-web
 ```
 
 Pendant la mise à jour, le service reste disponible — les conteneurs sont mis à jour un par un.

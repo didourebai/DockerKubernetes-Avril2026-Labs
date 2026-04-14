@@ -1,0 +1,36 @@
+# deployment-v1.yaml -- Deployment version 1 avec 3 repliques
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portail-it
+  labels:
+    app: portail-it
+  annotations:
+    kubernetes.io/change-cause: "Version initiale nginx 1.24"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: portail-it
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1        # Maximum 1 Pod supplementaire pendant la MAJ
+      maxUnavailable: 0  # Aucun Pod indisponible pendant la MAJ
+  template:
+    metadata:
+      labels:
+        app: portail-it
+    spec:
+      containers:
+      - name: app
+        image: nginx:1.24-alpine
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "16Mi"
+            cpu: "25m"
+          limits:
+            memory: "32Mi"
+            cpu: "50m"

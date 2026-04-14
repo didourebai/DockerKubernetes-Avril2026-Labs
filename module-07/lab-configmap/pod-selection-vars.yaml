@@ -1,0 +1,22 @@
+# pod-selection-vars.yaml -- Pod qui selectionne certaines variables
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-vars-select
+spec:
+  containers:
+  - name: app
+    image: alpine
+    command: ["sh", "-c", "echo ENVIRONNEMENT=$ENVIRONNEMENT && echo MDP=$MDP && sleep 3600"]
+    env:
+    - name: ENVIRONNEMENT
+      valueFrom:
+        configMapKeyRef:
+          name: config-portail
+          key: APP_ENV
+    - name: MDP
+      valueFrom:
+        secretKeyRef:
+          name: secret-portail
+          key: MOT_DE_PASSE_DB
+  restartPolicy: Never

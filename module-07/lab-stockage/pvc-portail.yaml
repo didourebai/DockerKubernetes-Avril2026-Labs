@@ -1,0 +1,11 @@
+# pvc-portail.yaml -- Demande de stockage de 100 Mo
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-donnees-portail
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi

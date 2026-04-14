@@ -1,0 +1,18 @@
+# pod-avec-fichier.yaml -- Pod qui monte le ConfigMap comme fichier
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-fichier-test
+spec:
+  containers:
+  - name: app
+    image: alpine
+    command: ["sh", "-c", "cat /etc/config/parametres.conf && sleep 3600"]
+    volumeMounts:
+    - name: config-volume
+      mountPath: /etc/config
+  volumes:
+  - name: config-volume
+    configMap:
+      name: configmap-nginx
+  restartPolicy: Never

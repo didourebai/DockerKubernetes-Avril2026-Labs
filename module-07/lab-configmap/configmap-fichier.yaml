@@ -1,0 +1,12 @@
+# configmap-fichier.yaml -- ConfigMap monte comme un fichier de configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap-nginx
+data:
+  parametres.conf: |
+    # Parametres du portail IT-Support
+    APP_ENV=production
+    APP_VERSION=2.0.0
+    LOG_LEVEL=info
+    MAX_CONNEXIONS=100

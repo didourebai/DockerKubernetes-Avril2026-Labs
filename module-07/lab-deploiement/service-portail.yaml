@@ -1,0 +1,13 @@
+# service-portail.yaml -- Service NodePort pour acceder au portail
+apiVersion: v1
+kind: Service
+metadata:
+  name: portail-it-svc
+spec:
+  type: NodePort
+  selector:
+    app: portail-it
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30080

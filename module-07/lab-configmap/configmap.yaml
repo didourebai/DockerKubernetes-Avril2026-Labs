@@ -1,0 +1,10 @@
+# configmap.yaml -- Variables de configuration du portail
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-portail
+data:
+  APP_ENV: "production"
+  APP_VERSION: "2.0.0"
+  NOM_INSTITUTION: "ETS Formation"
+  PORT: "5000"

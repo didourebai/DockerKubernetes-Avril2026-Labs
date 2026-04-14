@@ -1,0 +1,14 @@
+# pod-avec-config.yaml -- Pod qui injecte tout le ConfigMap
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-config-test
+spec:
+  containers:
+  - name: app
+    image: alpine
+    command: ["sh", "-c", "echo APP_ENV=$APP_ENV && echo VERSION=$APP_VERSION && echo INSTITUTION=$NOM_INSTITUTION && sleep 3600"]
+    envFrom:
+    - configMapRef:
+        name: config-portail
+  restartPolicy: Never

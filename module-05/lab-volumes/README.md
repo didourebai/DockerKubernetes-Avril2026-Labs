@@ -19,6 +19,8 @@ docker run -it --name test-ephemere alpine sh
 
 Dans le conteneur, tapez :
 ```sh
+mkdir data
+touch mon-fichier.txt
 echo "Bonjour, je suis un fichier important !" > /data/mon-fichier.txt
 cat /data/mon-fichier.txt
 exit

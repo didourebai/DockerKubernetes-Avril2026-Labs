@@ -73,7 +73,14 @@ kubectl apply -f service-portail.yaml
 kubectl get service portail-it-svc
 ```
 
-Accéder au portail : **http://localhost:30080**
+**Acceder au portail :**
+
+```bash
+kubectl port-forward service/portail-it-svc 8080:80
+```
+
+Ouvrez **http://localhost:8080** dans votre navigateur.
+`Ctrl+C` pour arreter le port-forward.
 
 ---
 

@@ -101,7 +101,14 @@ kubectl apply -f k8s/service-nginx.yaml
 kubectl -n it-support get services
 ```
 
-Ouvrez **http://localhost:30080** ✅
+**Acceder au portail :**
+
+```bash
+kubectl port-forward service/it-portal-nginx-svc 8080:80 -n it-support
+```
+
+Ouvrez **http://localhost:8080** dans votre navigateur.
+`Ctrl+C` pour arreter le port-forward.
 
 ---
 

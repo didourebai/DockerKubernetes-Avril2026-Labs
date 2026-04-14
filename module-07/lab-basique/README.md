@@ -6,6 +6,14 @@
 ## 🎯 Objectifs
 Créer un cluster local, déployer un Pod, un Deployment et un Service.
 
+
+> **Note importante Windows (Docker Desktop) :**
+> Les Services `NodePort` ne sont pas accessibles directement sur `localhost:3xxxx`
+> sous Windows avec Docker Desktop. Utiliser toujours `kubectl port-forward`
+> pour acceder aux services depuis votre navigateur.
+> Exemple : `kubectl port-forward service/mon-service 8080:80`
+> puis ouvrir **http://localhost:8080**
+
 ---
 
 ## Étape 1 — Vérifier kubectl et le cluster
@@ -121,7 +129,18 @@ kubectl apply -f service-nginx.yaml
 kubectl get services
 ```
 
-Ouvrez **http://localhost:30080** ✅
+**Acceder au service :**
+
+> **Note Windows (Docker Desktop) :** NodePort ne fonctionne pas directement
+> sur localhost. Utilisez `kubectl port-forward` a la place.
+
+**Windows (PowerShell) et Mac/Linux :**
+```bash
+kubectl port-forward service/web-service 8080:80
+```
+
+Puis ouvrez **http://localhost:8080** dans votre navigateur.
+`Ctrl+C` pour arreter le port-forward quand vous avez termine.
 
 ---
 

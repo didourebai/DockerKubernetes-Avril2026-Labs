@@ -51,8 +51,10 @@ docker exec client-test ping -c 3 serveur-web
 
 # Faire une requête HTTP au serveur web
 docker exec client-test wget -qO- http://serveur-web
-```
 
+# Afficher le réseau d'un conteneur
+docker inspect client-test --format '{{range $k, $v := .NetworkSettings.Networks}}{{$k}}{{end}}'
+```
 > 💡 Les conteneurs sur le même réseau peuvent se joindre **par leur nom** — pas besoin d'adresse IP !
 
 ### Étape 4 — Nettoyer

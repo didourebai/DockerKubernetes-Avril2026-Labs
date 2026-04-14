@@ -32,13 +32,61 @@ PersistentVolumeClaim         ← Données SQLite persistantes
 
 ---
 
-## Étape 1 — Préparer l'image
+## Étape 1 — Construire l'image (OBLIGATOIRE avant tout kubectl)
 
+> **Important :** Kubernetes ne peut pas télécharger cette image depuis Internet.
+> Elle doit exister localement dans Docker Desktop avant de déployer.
+> Si vous sautez cette étape, les Pods resteront bloqués en `ErrImagePull`.
+
+**Windows (PowerShell) :**
+```powershell
+cd labs\module-07\lab-fil-rouge
+docker build -t it-portal:v6 -f app/Dockerfile app/
+```
+
+**Mac / Linux :**
 ```bash
 cd labs/module-07/lab-fil-rouge
-
-# Construire l'image v6
 docker build -t it-portal:v6 -f app/Dockerfile app/
+```
+
+**Verifier que l'image existe avant de continuer :**
+
+**Windows (PowerShell) :**
+```powershell
+docker images | findstr it-portal
+```
+
+**Mac / Linux :**
+```bash
+docker images | grep it-portal
+```
+
+**Resultat attendu :**
+```
+it-portal   v6   abc123...   2 minutes ago   180MB
+```
+
+> Si l'image n'apparait pas, le build a echoue. Relancez la commande docker build.
+
+---
+
+**Diagnostic si les Pods ne demarrent pas :**
+
+Si apres avoir deploye vous voyez cette erreur :
+```
+error: deployment "it-portal-app" exceeded its progress deadline
+```
+
+Cela signifie que l'image n'a pas ete trouvee. Verifiez avec :
+```bash
+kubectl -n it-support describe pod -l app=it-portal-app
+```
+
+Puis rebuildez l'image et relancez :
+```bash
+docker build -t it-portal:v6 -f app/Dockerfile app/
+kubectl -n it-support rollout restart deployment/it-portal-app
 ```
 
 ---

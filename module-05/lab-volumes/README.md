@@ -293,9 +293,7 @@ Exemple : un conteneur écrit, un autre lit.
 
 ```bash
 # Conteneur 1 : écrit dans le volume
-docker run -d --name ecrivain \
-  -v partage:/data \
-  alpine sh -c "while true; do echo \"$(date)\" >> /data/journal.log; sleep 2; done"
+docker run -d --name ecrivain -v partage:/data alpine sh -c "while true; do echo \"$(date)\" >> /data/journal.log; sleep 2; done"
 ```
 
 **Windows (PowerShell) :**

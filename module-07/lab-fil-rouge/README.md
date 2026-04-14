@@ -88,15 +88,6 @@ error: deployment "it-portal-app" exceeded its progress deadline
 Cela signifie que l'image n'a pas ete trouvee. Verifiez avec :
 ```bash
 kubectl -n it-support describe pod -l app=it-portal-app
-```
-
-Puis rebuildez l'image et relancez :
-```bash
-docker build -t it-portal:v6 -f app/Dockerfile app/
-kubectl -n it-support rollout restart deployment/it-portal-app
-```
-
----
 
 ## Étape 2 — Créer le namespace
 

@@ -15,16 +15,14 @@ Quand il redémarre, ses données disparaissent.
 
 ```bash
 # Créer un Pod qui écrit un fichier
-kubectl run pod-ephemere --image=alpine --restart=Never \
-  -- sh -c "echo 'Données importantes' > /tmp/données.txt && sleep 30"
+kubectl run pod-ephemere --image=alpine --restart=Never -- sh -c "echo 'Données importantes' > /tmp/données.txt && sleep 30"
 
 kubectl exec pod-ephemere -- cat /tmp/données.txt
 # Données importantes
 
 # Supprimer et recréer le Pod
 kubectl delete pod pod-ephemere
-kubectl run pod-ephemere --image=alpine --restart=Never \
-  -- sh -c "cat /tmp/données.txt && sleep 30"
+kubectl run pod-ephemere --image=alpine --restart=Never -- sh -c "cat /tmp/données.txt && sleep 30"
 
 kubectl logs pod-ephemere
 # Erreur : fichier introuvable

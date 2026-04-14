@@ -24,10 +24,7 @@ Dans Kubernetes, on les centralise dans des objets dédiés :
 ### Méthode 1 : depuis la ligne de commande
 
 ```bash
-kubectl create configmap config-ecole \
-  --from-literal=APP_ENV=production \
-  --from-literal=APP_VERSION=1.0.0 \
-  --from-literal=NOM_ECOLE=ÉTS
+kubectl create configmap config-ecole --from-literal=APP_ENV=production --from-literal=APP_VERSION=1.0.0 --from-literal=NOM_ECOLE=ÉTS
 ```
 
 Voir le ConfigMap créé :
@@ -69,9 +66,7 @@ config-portail    4      5s
 ## Étape 2 -- Créer un Secret
 
 ```bash
-kubectl create secret generic secret-portail \
-  --from-literal=MOT_DE_PASSE_DB=MonMotDePasse123 \
-  --from-literal=CLE_API=abc123xyz
+kubectl create secret generic secret-portail --from-literal=MOT_DE_PASSE_DB=MonMotDePasse123 --from-literal=CLE_API=abc123xyz
 ```
 
 Voir le Secret :

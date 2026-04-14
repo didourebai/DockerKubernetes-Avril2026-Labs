@@ -261,8 +261,7 @@ kubectl rollout pause deployment/portail-it
 
 # Faire plusieurs changements
 kubectl set image deployment/portail-it app=nginx:1.27-alpine
-kubectl set resources deployment/portail-it \
-  --limits=memory=64Mi,cpu=100m
+kubectl set resources deployment/portail-it --limits=memory=64Mi,cpu=100m
 
 # Reprendre -- les changements s'appliquent tous d'un coup
 kubectl rollout resume deployment/portail-it

@@ -7,6 +7,37 @@
 Migrer le IT-Support Portal de Docker Compose vers Kubernetes.  
 Utiliser des Deployments, Services, ConfigMaps et Secrets K8s.
 
+
+> **IMPORTANT avant de commencer :**
+> L'image `it-portal:v6` doit etre construite localement AVANT de deployer sur Kubernetes.
+> Kubernetes cherche cette image sur votre machine (`imagePullPolicy: Never`).
+> Si vous sautez cette etape, vous obtenez l'erreur `ErrImageNeverPull`.
+
+---
+
+## Etape 0 -- Construire l'image (OBLIGATOIRE)
+
+**Windows (PowerShell) :**
+```powershell
+cd labs\module-07\lab-fil-rouge
+docker build -t it-portal:v6 -f app\Dockerfile app\
+docker images | findstr it-portal
+```
+
+**Mac / Linux :**
+```bash
+cd labs/module-07/lab-fil-rouge
+docker build -t it-portal:v6 -f app/Dockerfile app/
+docker images | grep it-portal
+```
+
+**Resultat attendu :**
+```
+it-portal   v6   abc123...   1 minute ago   ~150MB
+```
+
+> Sans ce resultat, n'allez pas plus loin -- les Pods ne demarreront pas.
+
 ---
 
 ## Architecture v6

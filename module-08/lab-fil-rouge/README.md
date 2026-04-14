@@ -9,6 +9,34 @@ Déployer et gérer le IT-Support Portal entièrement avec Helm :
 - Mise à jour de version
 - Rollback en cas de problème
 
+
+> **IMPORTANT avant de commencer :**
+> L'image `it-portal:v7` doit etre construite localement AVANT de deployer avec Helm.
+> Si vous sautez cette etape, les Pods restent en `ErrImageNeverPull`.
+
+---
+
+## Etape 0 -- Construire l'image (OBLIGATOIRE)
+
+**Windows (PowerShell) :**
+```powershell
+cd labs\module-08\lab-fil-rouge
+docker build -t it-portal:v7 -f app\Dockerfile app\
+docker images | findstr it-portal
+```
+
+**Mac / Linux :**
+```bash
+cd labs/module-08/lab-fil-rouge
+docker build -t it-portal:v7 -f app/Dockerfile app/
+docker images | grep it-portal
+```
+
+**Resultat attendu :**
+```
+it-portal   v7   abc123...   1 minute ago   ~150MB
+```
+
 ---
 
 ## Architecture v7

@@ -193,16 +193,13 @@ kubectl rollout undo deployment/web-deployment
 
 ```bash
 # Créer un ConfigMap
-kubectl create configmap app-config \
-  --from-literal=APP_ENV=production \
-  --from-literal=APP_VERSION=1.0.0
+kubectl create configmap app-config --from-literal=APP_ENV=production --from-literal=APP_VERSION=1.0.0
 
 kubectl get configmap app-config
 kubectl describe configmap app-config
 
 # Créer un Secret
-kubectl create secret generic app-secret \
-  --from-literal=DB_PASSWORD=MonMotDePasse123
+kubectl create secret generic app-secret --from-literal=DB_PASSWORD=MonMotDePasse123
 
 kubectl get secrets
 ```

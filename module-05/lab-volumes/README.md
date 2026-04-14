@@ -224,23 +224,27 @@ Sans volume, une base de données perd toutes ses données à chaque redémarrag
 Voici comment sauvegarder les données d'une base SQLite.
 
 ```bash
-docker run -d `
-  --name ma-base `
-  -v mon-premier-volume:/app/data `
-  -e APP_ENV=production `
-  python:3.12-slim `
-  python3 -c "
-import sqlite3, os, time
+@"
+import sqlite3, os
 os.makedirs('/app/data', exist_ok=True)
 conn = sqlite3.connect('/app/data/ecole.db')
 conn.execute('CREATE TABLE IF NOT EXISTS serveurs (id INTEGER PRIMARY KEY, nom TEXT, statut TEXT)')
-conn.execute(\"INSERT INTO serveurs (nom, statut) VALUES ('Serveur-Web-01', 'actif')\")
-conn.execute(\"INSERT INTO serveurs (nom, statut) VALUES ('NAS-01', 'actif')\")
+conn.execute("INSERT INTO serveurs (nom, statut) VALUES ('Serveur-Web-01', 'actif')")
+conn.execute("INSERT INTO serveurs (nom, statut) VALUES ('NAS-01', 'actif')")
 conn.commit()
 print('Base de données créée dans /app/data/ecole.db')
 for row in conn.execute('SELECT * FROM serveurs'):
     print(row)
 conn.close()
+"@ | Out-File -FilePath ".\init.py" -Encoding utf8
+
+docker run -d `
+  --name ma-base `
+  -v mon-premier-volume:/app/data `
+  -v "$(pwd)/init.py:/init.py" `
+  -e APP_ENV=production `
+  python:3.12-slim `
+  python3 /init.py
 "
 
 ```
